@@ -1,0 +1,275 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<meta name="format-detection" content="telephone=yes"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="no"/>
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-trunslucent"/>
+	<script src="js/comon.js?v=20130217"></script>	
+	<script src="js/utils.js?v=20130217"></script>
+	<script src="js/cal.js?v=20130217"></script>	
+	<script src="js/line.js?v=20130217"></script>
+	<script src="js/cand.js?v=20130217"></script>
+	<script src="js/cloud.js?v=20130217"></script>
+	<script src="js/rsi.js?v=20130217"></script>
+	<script src="js/mas.js?v=20130217"></script>
+	<script src="js/emas.js?v=20130217"></script>
+	<script src="js/tech.js?v=20130217"></script>
+	<script src="js/avg.js?v=20130217"></script>
+	<script src="js/sto.js?v=20130217"></script>
+	<script src="js/macd.js?v=20130217"></script>
+	<script src="js/tick.js?v=20130217"></script>
+	<script src="js/main.js?v=20130217"></script>
+    <style type="text/css">
+		body,div,
+		dl,dt,dd,ul,ol,li,
+		h1,h2,h3,h4,h5,h6,
+		pre,form,fieldset,input,textarea,p,blockquote,th,td 
+		{margin:0;padding:0;}
+		table {border-collapse:collapse;border-spacing:0;}
+		fieldset,img {border:0;}		
+		address,caption,cite,code,dfn,em,strong,th,var {font-style:normal;font-weight:normal;}
+		ol,ul {list-style:none;}
+		caption,th {text-align:left;}
+		h1,h2,h3,h4,h5,h6 {font-size:100%;font-weight:normal;}
+		q:before,q:after {content:'';}
+		abbr,acronym { border:0;}
+	</style>
+	<link rel="stylesheet" href="css/style.css?v=201302081" type="text/css" media="all"/>
+</head>
+<body>
+	<div id="chartShelter"></div>
+	<div id="chartSubMenu">
+		<!--一级设定画面-->
+		<div id="mainSetings">
+			<span>チャート設定</span><br/>
+			<div id="currencyPair" style="height:25px;">
+				<div>通貨ペア</div>
+				<select id="se_pair">
+					<option value="USDJPY">USD/JPY</option><option value="EURJPY">EUR/JPY</option>
+					<option value="GBPJPY">GBP/JPY</option><option value="AUDJPY">AUD/JPY</option>
+					<option value="NZDJPY">NZD/JPY</option><option value="CADJPY">CAD/JPY</option>
+					<option value="CHFJPY">CHF/JPY</option><option value="ZARJPY">ZAR/JPY</option>
+					<option value="EURUSD">EUR/USD</option><option value="GBPUSD">GBP/USD</option>
+					<option value="AUDUSD">AUD/USD</option><option value="NZDUSD">NZD/USD</option>
+				</select>		
+			</div>
+			<div id="unitSetings" style="height:25px;">
+				<div >足型選択</div>
+				<select id="se_unit" onchange="checkSelect(this)">	
+					<option value="bid">BidTick</option><option value="ask">AskTick</option>
+					<option value="min">分足</option><option value="3min">3分足</option>
+					<option value="5min">5分足</option><option value="10min">10分足</option>
+					<option value="15min">15分足</option><option value="30min">30分足</option>
+					<option value="hour">60分足</option><option value="day">日足</option>		
+				</select>
+			</div>
+			<div id="typeA" style="height:25px;">
+				<div>チャート選択</div>
+				<select id="se_type">
+					<option value="cand">ローソク</option><option value="line">ライン</option><option value="avg">平均足</option>
+				</select>
+			</div>
+			<div id="typeB" style="height:50px;">
+				<div>テクニカル</div>
+				<select id="se_type2" onchange="typeSelect(this,'type2')">		
+					<option value="">なレ</option>			
+					<option value="mas">移動平均</option><option value="emas">平滑移動平均</option>
+					<option value="tech">ボリンジャーバンド</option>
+					<option value="cloud">一目均衡表</option>
+				</select>
+				<input type="button" value="設定" id= "set1" onClick="firstSet(1)" disabled="disabled">
+			</div>
+			<div id="typeC" style="height:50px;">
+				<div>オシしーター</div>
+				<select id="se_type3"  onchange="typeSelect(this,'type3')">
+					<option value="">なレ</option><option value="macd">MACD</option>
+					<option value="rsi">RSI</option><option value="sto">ストキャスティクス</option>
+				</select>
+				<input type="button" value="設定" id="set2" onClick="firstSet(2)" disabled="disabled">
+			</div>
+			<div id="setingBtn">
+				<input type="button" value="設定" onClick="upConfirm();">
+				<input type="button" value="元に戻す" onClick="resetAllSetting();">
+				<input type="button" value="取消" onClick="$('chartSubMenu').style.display='none';$('chartShelter').style.display='none';resetAllSetting();">
+			</div>
+		</div>
+		<!--二级设定画面-->
+		<!--移动平均-->
+		<div id="mas_set">
+			<div style="color:#808080;font-size:25px">移動平均</div>
+			<div id="ma1_set">
+				<div style="float:left;width:20px;margin-left:20px;font-size:20px;color:#FF0000">MA1</div>
+				<input type="range" id="ma1" min="0" max="100"  onchange="$('show_ma1').innerHTML = this.value;"/>
+				<span style="color:#FF0000" id='show_ma1'></span>
+			</div>
+			<div id="ma2_set">
+				<div style="float:left;width:20px;margin-left:20px;font-size:20px;color:#94C300">MA2</div>
+				<input type="range" id="ma2" min="0" max="100" onchange="$('show_ma2').innerHTML = this.value;"/>
+				<span style="color:#94C300" id='show_ma2'></span>
+			</div>
+			<div id="ma3_set">
+				<div style="float:left;width:20px;margin-left:20px;font-size:20px;color:#3159AD">MA3</div>
+				<input type="range" id="ma3" min="0" max="100" onchange="$('show_ma3').innerHTML = this.value;"/>
+				<span style="color:#3159AD" id='show_ma3'></span>
+			</div>
+			<div>
+				<input type="button" value="設定"  onClick="secondConfirm('mas');$('mas_set').style.visibility='hidden';" >
+				<input type="button" value="元に戻す" onClick="resetSetting('mas');">
+				<input type="button" value="取消" onClick="resetSetting('mas');$('mainSetings').style.visibility='visible';$('mas_set').style.visibility='hidden'">
+			</div>
+		</div>	
+		<!--平滑移动平均-->
+		<div id="emas_set">
+			<div style="color:#808080;font-size:25px">平滑移动平均</div>
+			<div id="ema1_set">
+				<div style="float:left;width:20px;margin-left:20px;font-size:20px;color:#FF0000">MA1</div>
+				<input type="range" id="ema1" min="0" max="100" onchange="$('show_ema1').innerHTML = this.value;"/>
+				<span style="color:#FF0000" id='show_ema1'></span>
+			</div>
+			<div id="ema2_set">
+				<div style="float:left;width:20px;margin-left:20px;font-size:20px;color:#94C300">MA2</div>
+				<input type="range" id="ema2" min="0" max="100" onchange="$('show_ema2').innerHTML = this.value;"/>
+				<span style="color:#94C300" id='show_ema2'></span>
+			</div>
+			<div id="ema3_set">
+				<div style="float:left;width:20px;margin-left:20px;font-size:20px;color:#3159AD">MA3</div>
+				<input type="range" id="ema3" min="0" max="100" onchange="$('show_ema3').innerHTML = this.value;"/>
+				<span style="color:#3159AD" id='show_ema3'></span>
+			</div>
+			<div>
+				<input type="button" value="設定"  onClick="secondConfirm('emas');$('emas_set').style.visibility='hidden';">
+				<input type="button" value="元に戻す" onClick="resetSetting('emas');">
+				<input type="button" value="取消" onClick="resetSetting('emas');$('mainSetings').style.visibility='visible';$('emas_set').style.visibility='hidden'">
+			</div>
+		</div>
+		<!--ボリンジャーバンド-->
+		<div id="tech_set">
+			<div style="margin:12px 0 12px 0;color:#808080;font-size:25px">ボリンジャーバンド</div>
+			<div id="tma_set" style="margin:12px 0 12px 0;">
+				<div style="float:left;width:20px;margin-left:20px;font-size:20px;color:#FFFF00">MA</div>
+				<input type="range" id="tma" min="0" max="100" onchange="$('show_tma').innerHTML = this.value;"/>
+				<span style="color:#FFFF00" id='show_tma'></span>
+			</div>
+			<div id="bol1_set"style="margin:12px 0 12px 0;">
+				<div style="float:left;width:20px;margin-left:20px;font-size:20px;color:#FF0000">BOL1</div>
+				<input type="range" id="bol1" min="0" max="3" onchange="$('show_bol1').innerHTML = this.value;"/>
+				<span style="color:#FF0000" id='show_bol1'></span>
+			</div>
+			<div id="bol2_set"style="margin:12px 0 12px 0;">
+				<div style="float:left;width:20px;margin-left:20px;font-size:20px;font-size:20px;color:#94C300">BOL2</div>
+				<input type="range" id="bol2" min="0" max="3" onchange="$('show_bol2').innerHTML = this.value;"/>
+				<span style="color:#94C300" id='show_bol2'></span>
+			</div>
+			<div id="bol3_set" style="margin:12px 0 12px 0;">
+				<div style="float:left;width:20px;margin-left:20px;font-size:20px;color:#3159AD">BOL3</div>
+				<input type="range" id="bol3" min="0" max="3" onchange="$('show_bol3').innerHTML = this.value;"/>
+				<span style="color:#3159AD" id='show_bol3'></span>
+			</div>
+			<div style="margin:12px 0 12px 0;">	
+				<input type="button" value="設定"  onClick="secondConfirm('tech');$('tech_set').style.visibility='hidden';">
+				<input type="button" value="元に戻す" onClick="resetSetting('tech');">
+				<input type="button" value="取消" onClick="resetSetting('tech');$('mainSetings').style.visibility='visible';$('tech_set').style.visibility='hidden'">
+			</div>
+		</div>
+		<!--一目均衡表--><!--none-->
+		<!--MACD-->
+		<div id="macd_set">
+			<div style="color:#808080;font-size:25px">MACD</div>
+			<div id="short_set">
+				<div style="float:left;width:20px;margin-left:20px;font:20px;color:#00FFFF">SHORT</div>
+				<input type="range" id="short" min="1" max="50" onchange="$('show_short').innerHTML = this.value;"/>
+				<span style="color:#00FFFF" id='show_short'></span>
+			</div>
+			<div id="long_set">
+				<div style="float:left;width:20px;margin-left:20px;font:20px;color:#FF00FF">LONG</div>
+				<input type="range" id="long" min="1" max="50" onchange="$('show_long').innerHTML = this.value;"/>
+				<span style="color:#FF00FF" id='show_long'></span>
+			</div>
+			<div id="mid_set">
+				<div style="float:left;width:20px;margin-left:20px;font:20px;color:#808080">MID</div>
+				<input type="range" id="mid" min="1" max="50" onchange="$('show_mid').innerHTML = this.value;"/>
+				<span style="color:#808080" id='show_mid'></span>
+			</div>
+			<div>
+				<input type="button" value="設定"  onClick="secondConfirm('macd');$('macd_set').style.visibility='hidden';">
+				<input type="button" value="元に戻す" onClick="resetSetting('macd');">
+				<input type="button" value="取消" onClick="resetSetting('macd');$('mainSetings').style.visibility='visible';$('macd_set').style.visibility='hidden'">
+			</div>	
+		</div>
+		<!--RSI-->
+		<div id="rsi_set">
+			<div style="color:#808080;font-size:25px">RSI</div>
+			<div id="rsi1_set">
+				<div style="float:left;width:20px;margin-left:20px;font:20px;color:#00FFFF">RSI1</div>
+				<input type="range" id="rsi1" min="0" max="99" onchange="$('show_rsi1').innerHTML = this.value;"/>
+				<span style="color:#00FFFF" id='show_rsi1'></span>
+			</div>
+			<div id="rsi2_set">
+				<div style="float:left;width:20px;margin-left:20px;font:20px;color:#00FF00">RSI2</div>
+				<input type="range" id="rsi2" min="0" max="99" onchange="$('show_rsi2').innerHTML = this.value;"/>
+				<span style="color:#00FF00" id='show_rsi2'></span>
+			</div>
+			<div>
+				<input type="button" value="設定"  onClick="secondConfirm('rsi');$('rsi_set').style.visibility='hidden';">
+				<input type="button" value="元に戻す" onClick="resetSetting('rsi');" >
+				<input type="button" value="取消" onClick="resetSetting('rsi');$('mainSetings').style.visibility='visible';$('rsi_set').style.visibility='hidden'">
+			</div>
+		</div>
+		<!--ストキャスティクス-->
+		<div id="sto_set">
+			<div style="color:#808080;font-size:25px">ストキャスティクス</div>
+			<div id="sto_d_set">
+				<div style="float:left;width:20px;margin-left:20px;font:20px;color:#00FF00">STO_D</div>
+				<input type="range" id="sto_d" min="0" max="51" onchange="$('show_stod').innerHTML = this.value;"/>
+				<span style="color:#00FF00" id='show_stod'></span>
+			</div>
+			<div id="sto_k_set">
+				<div style="float:left;width:20px;margin-left:20px;font:20px;color:#00FFFF">STO_K</div>
+				<input type="range" id="sto_k" min="0" max="51" onchange="$('show_stok').innerHTML = this.value;"/>
+				<span style="color:#00FFFF" id='show_stok'></span>
+			</div>
+			<div>	
+				<input type="button" value="設定"  onClick="secondConfirm('sto');$('sto_set').style.visibility='hidden';">
+				<input type="button" value="元に戻す" onClick="resetSetting('sto');">
+				<input type="button" value="取消" onClick="resetSetting('sto');$('mainSetings').style.visibility='visible';$('sto_set').style.visibility='hidden';">
+			</div>
+		</div>
+	</div>	
+	<!--ChartMain-->
+	<div id="chartHead"style="position:absolute;width:380px;height:45px;font-size:11px;" onClick="showSettingMenu();">
+		<div id="chartSetting"  style="float:left;margin:0px 0px 0px 4px;cursor:pointer;">
+			<img id="chartFlag" style="float:left;" alt="USD/JPY" src="img/flag/usdjpy.png">
+			<div  id="chartUnit" style="position:absolute;top:28px;width:40px;background-color:#404040;font-size:10px;text-align:center;height:16px;">BidTick</div>	
+		</div >
+		<div id="chartRate" style="margin:8px 0px 0px 4px;float:left;width:320px;">
+			<div style="float:left;margin-left:5px;width:76px;">
+				<div><div style="float:left;width:22px;">BID</div><span>:</span><span id="bidTick" ></span></div>
+				<div><div style="float:left;width:22px;">ASK</div><span>:</span><span id="askTick" ></span></div>
+			</div>
+			<div style="float:left;margin-left:0px;width:63px;">
+				<div><div style="float:left;width:8px;color:red;">H</div><span>:</span><span id="tickHigh"></span></div>
+				<div><div style="float:left;width:8px;color:blue;">L</div><span>:</span><span id="tickLow" ></span></div>
+			</div>
+			<div style="float:left;margin-left:0px;width:63px;">
+				<div><div style="float:left;width:8px;">O</div><span>:</span><span id="tickOpen" ></span></div>
+				<div><div style="float:left;width:8px;">C</div><span>:</span><span id="tickClose" ></span></div>
+			</div>
+			<div id="chartTime"  style="float:left;margin:0px 0px 0px 0px;text-align:right;width:66px;"></div>
+		</div>		
+	</div>
+	<div id="chartCanvas" style="position:absolute;">
+		<canvas id="canvas_background" style="position:absolute;z-index:101;top:34px;left:4px;">[No canvas support]</canvas>
+		<canvas id="canvas_chart" style="position:absolute;z-index:102;top:34px;left:4px;"></canvas>
+		<canvas id="canvas_chartText" style="position:absolute;z-index:103;top:34px;left:4px;"></canvas>
+		<canvas id="canvas_diamonds" style="position:absolute;z-index:104;top:34px;left:4px;"></canvas>
+	</div> 
+	<div id="zoomBtn" style="position:absolute;z-index:105;left:15px;visibility:hidden;width:100px;height:40px;">
+		<a onClick="zoom(0)" style="background:url('img/btn_minus.png');float:left;"></a>
+		<a onClick="zoom(1)" style="background:url('img/btn_plus.png');position:relative;left:10px"></a>
+	</div>	
+	<script src="js/init.js?v=20130218"></script>
+	<script src="js/set.js?v=20130217"></script>
+</body>
+</html>

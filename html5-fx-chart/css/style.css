@@ -1,0 +1,119 @@
+@charset "UTF-8";
+
+body{
+	position:absolute;
+	font-family: "メイリオ", Verdana, Arial, "ヒラギノ角ゴ Pro W3", "ＭＳ Ｐゴシック", sans-serif;
+	color:#FFFFFF;
+	background-color:#000000;
+	overflow:hidden;
+	-webkit-user-select:none;
+	-webkit-text-size-adjust:none;
+}		
+input[type="range"]{
+	height:20px;
+	float:left;
+	margin-left:48px;
+}
+#chartShelter{
+	position:absolute;
+	z-index:200;
+	display:none;
+	width:700px;
+	height:700px;
+	background-color:RGBA(211,211,211,0.4);
+}
+#chartSubMenu{
+	z-index: 1000;
+	position:absolute;
+	display:none;
+	width:300px; 
+	height:235px;
+	top:0px;
+}
+#mainSetings{
+	top:0px;
+	left:0px;
+	width: 300px;
+	height:235px;
+	margin:0 3.5% 0 3.5%;
+	z-index:999;
+	position:absolute;
+	border:1px solid black;
+	text-align:left;
+	color:#000000;
+	background-color:RGBA(0,0,0,0.6);
+}
+#mainSetings~div{
+	top:0px;
+	left:0px;
+	width:300px; 
+	height:235px;
+	margin:0 3.5% 0 3.5%;
+	z-index:999;
+	position:absolute;
+	visibility:hidden;
+	text-align: center;
+	color: #F8F8F8;
+	background-color:RGBA(0,0,0,0.6);
+}
+#mainSetings~div>div{
+	width:100%;
+	margin:18px 0 18px 0;
+}
+#mainSetings~div input[type="button"]{
+	width: 80px;
+	height: 30px;
+	margin:2px;
+}
+#mainSetings>span{
+	color:#F8F8F8;
+	font-size:18px;
+	margin:5px 0 0 5px;
+	height:25px;
+}
+#mainSetings>div{
+	color:#F8F8F8;
+}
+#mainSetings select{
+	width:130px;
+	height:25px;
+}
+#currencyPair >div{
+	float:left;
+	width:140px;
+	margin-left:10px;
+}
+#currencyPair~div>div{
+	float:left;
+	width:140px;
+	height:25px;
+	margin-left:10px;
+}
+#mainSetings input{
+	width:85px;
+	height:25px;
+}
+#setingBtn{
+	height:40px;
+	margin:2px 10% 2px 10%;
+}
+#setingBtn input{
+	width: 70px;
+	height: 28px;
+	margin:4px 0 2px 0;
+}
+#typeA~div select{
+	width:180px;
+	height:25px;
+	margin-left:10px;
+}
+#zoomBtn{
+	width:80px;
+	height:30px;
+}
+#zoomBtn>a{
+	float:left;
+	margin-right:18px;
+	width:26px;
+	height:26px;
+}
