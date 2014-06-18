@@ -155,17 +155,12 @@ comon = {
         var newValue = this.get_rate(pair, unit, num);
         if (newValue && typeof(newValue['pairz']) == 'undefined') {
             var index = 0;
-            console.log(this.rates_value[0]);
-            console.log(newValue[0]);
-
             for (var i = 0; i < newValue.length; i++) {
                 if (this.rates_value[0]['utimer'] === newValue[i]['utimer']) {
-
                     console.log("index:" + i);
                 }
                 //delete this.rates_value[i];
                 this.rates_value[i] = newValue[i].Clone();
-
             }
 
             main.update(this.rates_value);
