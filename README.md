@@ -1,84 +1,86 @@
 Blade-FX-Chart-HTML5
 ====================
-
-チャート設定            图表设置                  Chart Settings
-
+日文|中文|English
 
 
-通貨ペア                货币对                    Currency pair
+チャート設定        |    图表设置        |          Chart Settings
 
 
 
-足型選択                时间选择                  Time type selection
+通貨ペア       |         货币对           |         Currency pair
 
 
 
-分足                    分钟                      Minute
+足型選択         |       时间选择             |     Time type selection
 
 
 
-チャート選択            图型选择                  Chart selection
+分足          |          分钟              |        Minute
 
 
 
-ローソク                蜡烛                      Candle
+チャート選択     |       图型选择             |     Chart selection
 
 
 
-ライン                  线                        Line
+ローソク          |      蜡烛             |         Candle
 
 
 
-平均足                  平均尺                    Average
+ライン          |        线             |           Line
 
 
 
-テクニカル              技术图                    Technical
+平均足             |     平均尺              |      Average
 
 
 
-なレ                    无                        None
+テクニカル       |       技术图           |         Technical
 
 
 
-移動平均                移动平均线                Moving average
+なレ           |         无                  |      None
 
 
 
-平滑移動平均            平滑移动平均线            Smooth moving avera
+移動平均      |          移动平均线         |       Moving average
+
+
+
+平滑移動平均    |        平滑移动平均线     |       Smooth moving avera
 
 
 ge
-ボリンジャーバンド      布林带                    Bollinger Band
+ボリンジャーバンド   |   布林带            |        Bollinger Band
 
 
 
-一目均衡表              云图                      Cloud
+一目均衡表       |       云图            |          Cloud
 
 
 
-設定                    设置                      Setting
+設定         |           设置           |           Setting
 
 
 
-オシしーター            最新指标                  New
+オシしーター    |        最新指标       |           New
 
 
 
-MACD                    MACD                      MACD
+MACD         |           MACD              |        MACD
 
 
 
-RSI                     RSI                       RSI
+RSI         |            RSI             |          RSI
 
 
 
-ストキャスティクス      随机                      Stochastic
+ストキャスティクス  |    随机          |            Stochastic
 
 
 
-元に戻す                重置                      Reset
+元に戻す      |          重置           |           Reset
 
 
 
-取消                    取消                      Cancel
+取消        |            取消          |            Cancel
