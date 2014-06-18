@@ -1,4 +1,4 @@
-Blade-FX-Chart-HTML5
+FX-Chart-HTML5
 ====================
 日文|中文|English
 
