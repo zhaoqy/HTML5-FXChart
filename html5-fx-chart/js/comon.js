@@ -162,19 +162,12 @@ comon = {
                 if (this.rates_value[0]['utimer'] === newValue[i]['utimer']) {
 
                     console.log("index:" + i);
-                    //  index = i;
-
-                    //             console.log(newValue[i]);
                 }
                 //delete this.rates_value[i];
                 this.rates_value[i] = newValue[i].Clone();
 
             }
-            console.log("--------------");
-            console.log(this.rates_value[0]);
-            console.log(newValue[0]);
-            // console.log(this.rates_value[0]);
-            // console.log(newValue[newValue.length-1]);
+
             main.update(this.rates_value);
         }
     },
@@ -182,7 +175,6 @@ comon = {
         var rates = this.ajax_chart_response(pair, unit, num);
         if (rates && !! rates['pairz']) {
             this.rates_value = rates;
-            console.log('tttttttttt');
         }
         return rates;
     },
