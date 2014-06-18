@@ -1,4 +1,4 @@
-FX Chart By HTML5 Canvas
+FX Chart
 ====================
 日文|中文|English
 
